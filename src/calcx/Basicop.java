@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.Scanner;
 import static calcx.gcd.gcdtwo;
 import java.util.ArrayList;
+import static calcx.prime.*;
 
 /**
  *
@@ -361,9 +362,9 @@ public class Basicop {
     }
     
     
-    public static int[] unitmod(int n) {
+    public static ArrayList<Integer> unitmod(int n) {
         
-        int[] unit = null; 
+        ArrayList<Integer> unit = new ArrayList <Integer>(); 
         int i = 1;
         int c = 0; 
         
@@ -371,7 +372,7 @@ public class Basicop {
             
             if (gcdtwo (n, i) == 1) {
             
-                unit[c] = i; 
+                unit.add(c, i); 
                 i++;
                 c++; 
             
@@ -387,17 +388,17 @@ public class Basicop {
         
     }
     
-    public static int[] primemod(int n) {
+    public static ArrayList<Integer> primemod(int n) {
         
-        int[] unit = null; 
+        ArrayList<Integer> prime = new ArrayList <Integer>(); 
         int i = 1;
         int c = 0; 
         
         while (i < n){
             
-            if (gcdtwo(n, i) == 1) {
+            if (isPrime (gcdtwo (n, i))) {
             
-                unit[c] = i; 
+                prime.add(c, i); 
                 i++;
                 c++; 
             
@@ -409,7 +410,33 @@ public class Basicop {
             
         }
         
-        return unit; 
+        return prime; 
+        
+    }
+    
+    public static ArrayList<Integer> irreducmod(int n) {
+        
+        ArrayList<Integer> irreducibles = new ArrayList <Integer>(); 
+        int i = 1;
+        int c = 0; 
+        
+        while (i < n){
+            
+            if ((isPrime (gcdtwo (n, i))) && (n % integerpower(i, 2) == 0)) {
+            
+                irreducibles.add(c, i); 
+                i++;
+                c++; 
+            
+            } else {
+                
+                i++;
+                
+            }   
+            
+        }
+        
+        return irreducibles; 
         
     }
 }
