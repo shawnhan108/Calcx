@@ -27,6 +27,7 @@ public class CALCX {
             System.out.println("or enter in the form of primefac (a)"); 
             System.out.println("or enter in the form of max(a1,a2,a3,...,an)");
             System.out.println("or enter in the form of min(a1,a2,a3,...,an)");
+            System.out.println("prime?(a),factor?(a,b),coprime?(a,b)");
             Scanner sc = new Scanner (System.in);
             String input = sc.nextLine();
             String str = new String (input);
@@ -81,7 +82,37 @@ public class CALCX {
                 catch (Exception e1){
                     System.out.println("Invalid input. Please try again.");
                 }                 
-            }            
+            }
+            else if ((str.charAt(0) == 'p')&&(str.charAt(1) == 'r')&&(str.charAt(2) == 'i')&&(str.charAt(3) == 'm')&&(str.charAt(4) == 'e')&&(str.charAt(5) == '?')){
+                try{                    
+                    String4gl(str);
+                    System.out.println(isPrime(numlist.get(0)));
+                    break;
+                }
+                catch (Exception e1){
+                    System.out.println("Invalid input. Please try again.");
+                }                 
+            }
+            else if ((str.charAt(0) == 'f')&&(str.charAt(1) == 'a')&&(str.charAt(2) == 'c')&&(str.charAt(3) == 't')&&(str.charAt(4) == 'o')&&(str.charAt(5) == 'r')&&(str.charAt(6) == '?')){
+                try{                    
+                    String4gl(str);
+                    System.out.println(isFactor(numlist.get(0), numlist.get(1)));
+                    break;
+                }
+                catch (Exception e1){
+                    System.out.println("Invalid input. Please try again.");
+                }                 
+            }
+            else if ((str.charAt(0) == 'c')&&(str.charAt(1) == 'o')&&(str.charAt(2) == 'p')&&(str.charAt(3) == 'r')&&(str.charAt(4) == 'i')&&(str.charAt(5) == 'm')&&(str.charAt(6) == 'e')&&(str.charAt(7) == '?')){
+                try{                    
+                    String4gl(str);
+                    System.out.println(isCoprime(numlist.get(0), numlist.get(1)));
+                    break;
+                }
+                catch (Exception e1){
+                    System.out.println("Invalid input. Please try again.");
+                }                 
+            }
             else {
                 System.out.println("Invalid input. Please try again.");
             }

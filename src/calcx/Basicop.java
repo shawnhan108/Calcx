@@ -287,7 +287,7 @@ public class Basicop {
         
     }
     
-    public static boolean coprime(int a, int b) {
+    public static boolean isCoprime(int a, int b) {
         
         if (gcdtwo(a, b) == 1) {
             
