@@ -211,6 +211,8 @@ public class Basicop {
         int p; 
         int s;
         int i = 0;
+        int r = d / gcdtwo(a, b);
+        int acc = 0; 
         
         if (a > b) {
             
@@ -224,11 +226,13 @@ public class Basicop {
             
         } else {
             
-            return new int[] {2, -1}; 
+            return new int[] {2 * r, -1 * r}; 
             
         }
         
         while ((p > 0) && (s > 0)) {
+            
+            System.out.println(quotients); 
             
             if (p % s == 0) {
                 
@@ -237,10 +241,8 @@ public class Basicop {
                 
             }
             
-            quotients[i] = (p - p % s) / s; 
-            p = s;
-            s = p % s; 
-            i++; 
+            acc = ((p - p % s) / s);
+            quotients[i] = acc; 
             
             if (p % s == 1) {
                 
@@ -248,6 +250,10 @@ public class Basicop {
                 
             }
             
+            p = s;
+            s = p % s; 
+            i++; 
+           
         }
         
         i = quotients.length - 1; 
@@ -265,7 +271,6 @@ public class Basicop {
             
         }
         
-        int r = d / gcdtwo(a, b);
         
         if (((Math.abs(u) > Math.abs(v)) && (a > b)) || ((Math.abs(u) < Math.abs(v)) && (a < b))){
             
