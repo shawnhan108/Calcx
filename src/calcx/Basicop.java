@@ -216,28 +216,65 @@ public class Basicop {
         int r = d / gcdtwo(a, b);
         int acc = 0; 
         
-        if (a > b) {
+        if (a % b == 0) {
             
-            p = a; 
+            quotients.add(0, r);
+            quotients.add(1, (- (a / b) + 1) *r);
+            return quotients; 
+            
+        } else if (b % a == 0) {
+            
+            quotients.add(0, (- (a / b) + 1) * r);
+            quotients.add(1, r);
+            return quotients; 
+            
+        } else if (StrictMath.abs(a) > StrictMath.abs(b)) {
+            
+            p = a;
             s = b;
             
-        } else if (b > a) {
+            if (a < 0) {
+                
+                p = -a; 
+                
+            }
+            
+            if (b < 0) {
+                
+                s = -b;
+                
+            }  
+            
+        } else if (StrictMath.abs(b) > StrictMath.abs(a)) {
             
             p = b; 
             s = a; 
+            
+            if (a < 0) {
+                
+                p = -a; 
+                
+            }
+            
+            if (b < 0) {
+                
+                s = -b;
+                
+            } 
             
         } else {
             quotients.add(0,2*r);
             quotients.add(1,-1*r);
             return quotients; 
  
-        }
+        } 
+        
+        
         //now assume p>s, perform Euclidian Algorithm
         while ((p > 0) && (s > 0)) {
             
-            if (p % s == 0) {
-                                
-                quotients.set(i, p/s); 
+            if (p % s == 0 || p % s == 1) {
+                
                 break; 
                 
             }
@@ -245,15 +282,11 @@ public class Basicop {
             acc = ((p - p % s) / s);
             quotients.add(i, acc);
             
-            if (p % s == 1) {
-                
-                break;
-                
-            }
-            
+            acc = p; 
             p = s;
-            s = p % s; 
+            s = acc % s; 
             i++; 
+            
            
         }
         
@@ -273,14 +306,40 @@ public class Basicop {
         }
         
         ArrayList<Integer> output = new ArrayList <Integer>();
-        if (((Math.abs(u) > Math.abs(v)) && (a > b)) || ((Math.abs(u) < Math.abs(v)) && (a < b))){
+        if (((Math.abs(u) > Math.abs(v)) && (StrictMath.abs(a) > StrictMath.abs(b))) || ((Math.abs(u) < Math.abs(v)) && (StrictMath.abs(b) > StrictMath.abs(a)))){
             output.add(0, r*v);
             output.add(1, r*u);
+            
+            if (a < 0) {
+                
+                output.set(0, -r*v); 
+                
+            }
+            
+            if (b < 0) {
+                
+                output.set(1, -r*u); 
+                
+            } 
+            
             return output; 
             
         } else {
             output.add(0, r*u);
             output.add(1, r*v);
+            
+            if (a < 0) {
+                
+                output.set(0, -r*u); 
+                
+            }
+            
+            if (b < 0) {
+                
+                output.set(1, -r*v); 
+                
+            } 
+            
             return output;
             
         }
