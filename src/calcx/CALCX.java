@@ -26,10 +26,7 @@ public class CALCX {
      */
         public static void main(String[] args) {
             while (true){
-                
-                int quotients[] = null; 
-            quotients[2] = 3; 
-            System.out.println(quotients[2]); 
+            System.out.println(diophantine(2,3,4));
             System.out.println("Please enter in the form of gcd (a1, a2, ..., an)");
             System.out.println("or enter in the form of lcm(a1,a2,...an)");
             System.out.println("or enter in the form of primefac (a)"); 

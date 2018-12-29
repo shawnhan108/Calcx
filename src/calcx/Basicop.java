@@ -8,6 +8,7 @@ package calcx;
 import java.util.Random;
 import java.util.Scanner;
 import static calcx.gcd.gcdtwo;
+import java.util.ArrayList;
 
 /**
  *
@@ -205,9 +206,9 @@ public class Basicop {
         
     }
     
-    public static int[] diophantine(int a, int b, int d) {
+    public static ArrayList<Integer> diophantine(int a, int b, int d) {
         
-        int quotients[] = null; 
+        ArrayList<Integer> quotients = new ArrayList<Integer>();
         int p; 
         int s;
         int i = 0;
@@ -225,24 +226,23 @@ public class Basicop {
             s = a; 
             
         } else {
-            
-            return new int[] {2 * r, -1 * r}; 
+            quotients.add(0,2*r);
+            quotients.add(1,-1*r);
+            return quotients; 
             
         }
         
         while ((p > 0) && (s > 0)) {
             
-            System.out.println(quotients); 
-            
             if (p % s == 0) {
-                
-                quotients[i] = p/s; 
+                                
+                quotients.set(i, p/s); 
                 break; 
                 
             }
             
             acc = ((p - p % s) / s);
-            quotients[i] = acc; 
+            quotients.set(i, acc);
             
             if (p % s == 1) {
                 
@@ -256,29 +256,31 @@ public class Basicop {
            
         }
         
-        i = quotients.length - 1; 
+        i = quotients.size() - 1; 
         int u = 1;
-        int v = - quotients[i];
+        int v = - quotients.get(i);
         int k = 0; 
         
         while (i >= 0) {
             
             k = v; 
-            v = u - v * quotients[i - 1]; 
+            v = u - v * quotients.get(i-1);
             u = k; 
             
             i--;
             
         }
         
-        
+        ArrayList<Integer> output = new ArrayList <Integer>();
         if (((Math.abs(u) > Math.abs(v)) && (a > b)) || ((Math.abs(u) < Math.abs(v)) && (a < b))){
-            
-            return new int[] {r * v, r * u}; 
+            output.add(0, r*v);
+            output.add(1, r*u);
+            return output; 
             
         } else {
-            
-            return new int[] {r * u, r * v}; 
+            output.add(0, r*u);
+            output.add(1, r*v);
+            return output;
             
         }
         
