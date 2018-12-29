@@ -207,7 +207,8 @@ public class Basicop {
     }
     
     public static ArrayList<Integer> diophantine(int a, int b, int d) {
-        
+        //Solve any diophantine equation in the form of ax+by=d.
+        //output as a list with two elements, [x,y].
         ArrayList<Integer> quotients = new ArrayList<Integer>();
         int p; 
         int s;
@@ -229,9 +230,9 @@ public class Basicop {
             quotients.add(0,2*r);
             quotients.add(1,-1*r);
             return quotients; 
-            
+ 
         }
-        
+        //now assume p>s, perform Euclidian Algorithm
         while ((p > 0) && (s > 0)) {
             
             if (p % s == 0) {
@@ -242,7 +243,7 @@ public class Basicop {
             }
             
             acc = ((p - p % s) / s);
-            quotients.set(i, acc);
+            quotients.add(i, acc);
             
             if (p % s == 1) {
                 
@@ -261,7 +262,7 @@ public class Basicop {
         int v = - quotients.get(i);
         int k = 0; 
         
-        while (i >= 0) {
+        while (i > 0) {
             
             k = v; 
             v = u - v * quotients.get(i-1);

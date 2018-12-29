@@ -34,6 +34,8 @@ public class prime {
     }
     
     public static boolean isPrime (int a){
+        //will be executed while interpreter reads prime?(a)
+        //runtime O(sqrt(n))
         boolean out = true;
         if (a<2){
                 out = false;
@@ -70,6 +72,25 @@ public class prime {
             l2.add(l1.get(0));
         }
         return(l2);
+    }
+    
+    public static boolean isFactor (int a, int b){
+        if (b==0){
+            if (a==0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else {
+            if (a%b == 0){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     }
     
     public static ArrayList <ArrayList<Integer>> primeFac (int a){
