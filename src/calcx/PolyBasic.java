@@ -114,6 +114,8 @@ public class PolyBasic {
     }
     
     public static ArrayList<ArrayList<Double>> rearr (ArrayList<ArrayList<Double>> f){
+        //CAUTION: IN A PROCEDURE, THIS FUNCTION CAN ONLY BE APPLIED ONCE
+        //THAT IS, ONLY CALL THIS FUNCTION AT THE END OF ENTIRE PROCEDURE.
         //rearranges a polynomial f in descending order.
         //perform merge sort using recursion, runtime O(nlogn)
         //need to first map the 2D list into a 3D list.

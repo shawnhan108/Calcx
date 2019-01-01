@@ -98,15 +98,23 @@ public class PolyArith {
     public static ArrayList<ArrayList<Double>> addPoly (ArrayList<ArrayList<Double>> f1, ArrayList<ArrayList<Double>> f2){
         //add two polynomials together by merging two 2D arraylists f1,f2 together.
         //assume f1 is output.
-        for (int i = 0; i<f2.size();i++){
-            if (is2DMember(f1,f2.get(i))){
-                add2D(f1,f2.get(i));
-            }
-            else{
-                f1.add(f2.get(i));
+        if (f1.isEmpty()){
+            return f2;
+        }
+        else if (f2.isEmpty()){
+            return f1;
+        }
+        else{
+            for (int i = 0; i<f2.size();i++){
+                if (is2DMember(f1,f2.get(i))){
+                    add2D(f1,f2.get(i));
+                }
+                else{
+                    f1.add(f2.get(i));
+                }
             }
         }
-        return (rearr(f1));
+        return nozero(f1);
     }
     
     public static ArrayList<ArrayList<Double>> subsPoly (ArrayList<ArrayList<Double>> f1, ArrayList<ArrayList<Double>> f2){
@@ -122,7 +130,7 @@ public class PolyArith {
                 f1.add(temp);
             }
         }
-        return (nozero(rearr(f1)));
+        return (nozero(f1));
     }
     
     public static ArrayList<ArrayList<Double>> derivative (ArrayList<ArrayList<Double>> f1){
@@ -140,8 +148,34 @@ public class PolyArith {
             
         }
         
-        result = (nozero(rearr(f1)));
+        result = (nozero(f1));
         
         return result;
+    }
+    
+    public static ArrayList<ArrayList<Double>> multOne (ArrayList<ArrayList<Double>> f1, ArrayList<Double> f2){
+        //multiply a polynomial by a monomial, takes O(length(f1))
+        ArrayList<ArrayList<Double>> out = new ArrayList<ArrayList<Double>>();
+        for (int i = 0; i<f1.size();i++){
+            ArrayList<Double> temp = new ArrayList<>();
+            temp.add(f1.get(i).get(0)* f2.get(0));
+            temp.add(f1.get(i).get(1)+f2.get(1));
+            out.add(temp);
+        }
+        return out;
+    }
+    
+    public static ArrayList<ArrayList<Double>> multPoly (ArrayList<ArrayList<Double>> f1, ArrayList<ArrayList<Double>> f2){
+        //multiply two polynomials f1, f2 together using multOne: O(n)
+        //Altogether, takes O(length(f1)*length(f2))
+        //efficiency may be improved if have more time.
+        ArrayList<ArrayList<Double>> out = new ArrayList<>();
+        for (int m = 0; m<f2.size();m++){
+            ArrayList<ArrayList<Double>> temp = new ArrayList<>();
+            temp = multOne(f1,f2.get(m));
+            ArrayList<ArrayList<Double>>temp2 = addPoly(out,temp);
+            out = temp2;
+        }
+        return (nozero(out));
     }
 }
