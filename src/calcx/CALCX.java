@@ -23,35 +23,6 @@ public class CALCX {
         public static void main(String[] args) {
             while (true){
             //System.out.println(diophantine(-3973, 754, 29));           
-            ArrayList<ArrayList<Double>> f1 = new ArrayList<ArrayList<Double>>();
-            ArrayList<ArrayList<Double>> f2 = new ArrayList<ArrayList<Double>>();
-            ArrayList<Double> ex1 = new ArrayList<Double>();
-            ArrayList<Double> ex2 = new ArrayList<Double>();
-            ArrayList<Double> ex3 = new ArrayList<Double>();
-            ArrayList<Double> ex4 = new ArrayList<Double>();
-            ArrayList<Double> ex5 = new ArrayList<Double>();
-            ArrayList<Double> ex6 = new ArrayList<Double>();
-            ex1.add(9.0);
-            ex1.add(2.0);
-            ex2.add(3.0);
-            ex2.add(5.0);
-            ex3.add(2.0);
-            ex3.add(4.0);
-            ex4.add(1.0);
-            ex4.add(1.0);
-            ex5.add(2.0);
-            ex5.add(4.0);
-            ex6.add(6.0);
-            ex6.add(9.0);
-            f1.add(ex1);
-            f1.add(ex2);
-            f1.add(ex3);
-            f1.add(ex4);
-            f2.add(ex5);
-            f2.add(ex6);
-            System.out.println(f1);
-            System.out.println(f2);
-            System.out.println(rearr(multPoly(f1,f2))); 
             System.out.println("Please enter in the form of gcd (a1, a2, ..., an)");
             System.out.println("or enter in the form of lcm(a1,a2,...an)");
             System.out.println("or enter in the form of primefac (a)"); 

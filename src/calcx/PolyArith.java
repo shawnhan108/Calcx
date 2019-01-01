@@ -178,4 +178,8 @@ public class PolyArith {
         }
         return (nozero(out));
     }
+    
+    public static ArrayList<ArrayList<Double>> divPoly (ArrayList<ArrayList<Double>> f1,ArrayList<ArrayList<Double>> f2){
+        return f1;
+    }
 }
