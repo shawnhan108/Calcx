@@ -42,22 +42,34 @@ public class PolyBasic {
         return (roundTo(result, 2));
     }
     
+    public static ArrayList<ArrayList<Double>> myAdd (ArrayList<ArrayList<Double>> f1, ArrayList<Double> f2){
+        //takes O(n)
+        ArrayList<ArrayList<Double>> out = new ArrayList<ArrayList<Double>>();
+        boolean added = false;
+        for (int i = 0; i< f1.size();i++){
+            if (f1.get(i).get(1)>=f2.get(1)){
+                out.add(f1.get(i));
+            }
+            else {
+                out.add(f2);
+                added = true;
+                for (int m = i; m<f1.size();m++){
+                    out.add(f1.get(m));
+                }
+                break;
+            }
+        }
+        if (added == false){
+            out.add(f2);
+        }
+        return out;
+    }
+    
     public static ArrayList<ArrayList<Double>> myAppend (ArrayList<ArrayList<Double>> f1, ArrayList<ArrayList<Double>> f2){
         //input two 2D lists, and append f2 on f1 by the second element in descending order.
         //assume f1 is already in descending order.
-        ArrayList<ArrayList<Double>> out = f1;
-        int temp = f1.size();
-        int temp2 = f2.size();
-        for (int i = 0; i<temp2;i++){
-            for (int m = 0; m<temp;m++){
-                if (f1.get(m).get(1) < f2.get(i).get(1)){
-                    out.add(m,f2.get(i));
-                    break;
-                }
-                else if (m == (temp -1)){
-                    out.add(f2.get(i));
-                }
-            }
+        for (int i = 0; i<f2.size();i++){
+            f1 = myAdd(f1,f2.get(i));
         }
         return f1;
     }
@@ -67,7 +79,6 @@ public class PolyBasic {
     
     public static ArrayList<ArrayList<Double>> rearrhelper (ArrayList<ArrayList<ArrayList<Double>>> f){
         //perform merge sort using recursion, runtime O(nlogn)
-        System.out.println(f);
         if (f.size()==1){
             return (f.get(0));
         }

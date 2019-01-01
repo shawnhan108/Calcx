@@ -22,7 +22,7 @@ public class CALCX {
      */
         public static void main(String[] args) {
             while (true){
-            //System.out.println(diophantine(-3973, 754, 29));
+            //System.out.println(diophantine(-3973, 754, 29));           
             System.out.println("Please enter in the form of gcd (a1, a2, ..., an)");
             System.out.println("or enter in the form of lcm(a1,a2,...an)");
             System.out.println("or enter in the form of primefac (a)"); 

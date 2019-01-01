@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  *
- * @author SHAWN
+ * @author SHAWN and Allen
  */
 public class PolyArith {
     public static double polySummation (int lower, int upper, ArrayList<ArrayList<Double>> f){
@@ -106,8 +106,7 @@ public class PolyArith {
                 f1.add(f2.get(i));
             }
         }
-        System.out.println(f1);
-        return (nozero(rearr(f1)));
+        return (rearr(f1));
     }
     
     public static ArrayList<ArrayList<Double>> subsPoly (ArrayList<ArrayList<Double>> f1, ArrayList<ArrayList<Double>> f2){
