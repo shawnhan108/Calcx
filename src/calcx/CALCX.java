@@ -10,6 +10,8 @@ import static calcx.lcm.*;
 import static calcx.prime.*;
 import static calcx.Basicop.*; 
 import static calcx.minmax.*;
+import static calcx.PolyBasic.*;
+import static calcx.PolyArith.*;
 /**
  *
  * @author SHAWN
