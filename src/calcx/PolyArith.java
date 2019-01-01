@@ -125,4 +125,24 @@ public class PolyArith {
         }
         return (nozero(rearr(f1)));
     }
+    
+    public static ArrayList<ArrayList<Double>> derivative (ArrayList<ArrayList<Double>> f1){
+        //finds the derivative of a polynomial 
+        
+        ArrayList<ArrayList<Double>> result = new ArrayList<ArrayList<Double>>();
+        ArrayList<Double> term = new ArrayList<Double>();
+        for (int i = 0; i<f1.size();i++){
+            
+            term = f1.get(i); 
+            term.set(0, term.get(0) * term.get(1));
+            term.set(1, term.get(1) - 1); 
+            
+            result.add(i, term); 
+            
+        }
+        
+        result = (nozero(rearr(f1)));
+        
+        return result;
+    }
 }
