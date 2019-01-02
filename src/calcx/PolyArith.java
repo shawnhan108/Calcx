@@ -299,4 +299,39 @@ public class PolyArith {
             }
         }
     }
+    
+    public static double plugin (double x, ArrayList<ArrayList<Double>> f) {
+        
+        int i = f.size(); 
+        ArrayList<Double> term = new ArrayList<Double>();
+        double ANS = 0; 
+        
+        while (i > 0) {
+            
+            i--;
+            term = f.get(i); 
+            ANS = ANS + term.get(0) * StrictMath.pow(x, term.get(1)); 
+            
+        } 
+        
+        return ANS; 
+        
+    } 
+    
+    public static double findroot (double a, double b, ArrayList<ArrayList<Double>> f) {
+        // Need Interpreter to check that f(a) and f(b) has different sign or else cannot use this function
+        // Need Interpreter to then check this function actually gives a value between a and b. 
+        double c = (a + b)/2; 
+        double ANS = c - plugin(c, f) / plugin(c, derivative(f)); 
+        
+        while (StrictMath.abs(plugin(ANS, f) - 0) > 0.0000000000000001) {
+            
+            ANS = ANS - plugin(ANS, f) / plugin(ANS, derivative(f)); 
+            
+        }
+        
+        return ANS; 
+        
+    } 
+    
 }
