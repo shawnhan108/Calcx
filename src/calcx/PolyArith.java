@@ -275,6 +275,16 @@ public class PolyArith {
         }
     }
     
+    public static ArrayList<ArrayList<Double>> polyRound (ArrayList<ArrayList<Double>> f){
+        //round every coefficient to 2 decimal places
+        for (int x = 0; x<f.size();x++){
+            ArrayList<Double> temp = f.get(x);
+            temp.set(0, roundTo(f.get(x).get(0),2));
+            f.set(x, temp);
+        }
+        return f;
+    }
+    
     //STILL HAVE BUGS
     public static ArrayList<ArrayList<ArrayList<Double>>> doubleDivPoly (ArrayList<ArrayList<Double>> f1,ArrayList<ArrayList<Double>> f2){
         //calculates the result of f1 divided by f2, with quotient polynomial having non-integer coefficients
@@ -295,14 +305,14 @@ public class PolyArith {
         zero.add(zeroUnit); //now zero = [[0.0, 0.0]]
         while (true){
             if (p1.isEmpty()){
-                out.set(0,addPoly(out.get(0),zero));
-                out.set(1,addPoly(out.get(1),zero));
+                out.set(0,polyRound(addPoly(out.get(0),zero)));
+                out.set(1,polyRound(addPoly(out.get(1),zero)));
                 return out;
             }
             else if (polyDeg(p1)<polyDeg(p2)){
                 //quotient is zero, and remainder is p1.
-                out.set(0,addPoly(out.get(0),zero));
-                out.set(1,addPoly(out.get(1),p1));
+                out.set(0,polyRound(addPoly(out.get(0),zero)));
+                out.set(1,polyRound(addPoly(out.get(1),p1)));
                 return out;
             }
             else if (polyDeg(p1)== polyDeg(p2)){
@@ -312,7 +322,7 @@ public class PolyArith {
                 quotientUnit.add(0.0);
                 ArrayList<ArrayList<Double>> quotient = new ArrayList<ArrayList<Double>>();
                 quotient.add(quotientUnit);//quotient now is a 2D arrayList.
-                out.set(0,addPoly(out.get(0),quotient));
+                out.set(0,polyRound(addPoly(out.get(0),quotient)));
                 double realQuotient = p1.get(0).get(0)/p2.get(0).get(0);
                 ArrayList<Double> realQuotientUnit = new ArrayList<Double>();
                 realQuotientUnit.add(realQuotient);
@@ -321,7 +331,7 @@ public class PolyArith {
                 realQuotientList.add(realQuotientUnit);
                 ArrayList<ArrayList<Double>> remainder = new ArrayList<ArrayList<Double>>();
                 remainder = subsPoly(p1,multPoly(p2,realQuotientList));
-                out.set(1,addPoly(out.get(1),remainder));
+                out.set(1,polyRound(addPoly(out.get(1),remainder)));
                 return out;
             }
             else{
