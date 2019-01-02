@@ -183,8 +183,12 @@ public class PolyArith {
     public static double polyDeg (ArrayList<ArrayList<Double>> f){
         //returns the degree of the polynomial.
         ArrayList<ArrayList<Double>> temp = new ArrayList<ArrayList<Double>>();
-        temp = rearr(f);
-        double deg = temp.get(0).get(1);
+        double deg = Double.NEGATIVE_INFINITY;
+        for (int x = 0; x<f.size();x++){
+            if (deg<f.get(x).get(1)){
+                deg = f.get(x).get(1);
+            }
+        }
         return deg;
     }
     
@@ -199,6 +203,7 @@ public class PolyArith {
         //calculates the result of f1 divided by f2, with quotient polynomial only having integer coefficients
         //output as a 3D list (a pair of 2D list), with first element as quotient and second as remainder.
         //needs to check if f2 is empty in interpreter.
+        //THE OUTPUT SHOULD BE REARRANGED USING "REARR" FUNCTION IN INTERPRETER.
         ArrayList<ArrayList<Double>> p1 = new ArrayList<ArrayList<Double>>();
         ArrayList<ArrayList<Double>> p2 = new ArrayList<ArrayList<Double>>();
         ArrayList<ArrayList<Double>> zero = new ArrayList<ArrayList<Double>>();
@@ -214,14 +219,14 @@ public class PolyArith {
         p2 = nozero(f2);    
         while (true){
             if (p1.isEmpty()){
-                out.add(zero);
-                out.add(zero);
+                out.set(0,addPoly(out.get(0),zero));
+                out.set(1,addPoly(out.get(1),zero));
                 return out;
             }
             else if (polyDeg(p1)<polyDeg(p2)){
                 //quotient is zero, and remainder is p1.
-                out.add(zero);
-                out.add(p1);
+                out.set(0,addPoly(out.get(0),zero));
+                out.set(1,addPoly(out.get(1),p1));
                 return out;
             }
             else if (polyDeg(p1)==polyDeg(p2)){
@@ -232,10 +237,10 @@ public class PolyArith {
                 polyQuotient.add(0.0);
                 ArrayList<ArrayList<Double>>temp = new ArrayList<ArrayList<Double>>();
                 temp.add(polyQuotient);
-                out.add(temp);
+                out.set(0,addPoly(out.get(0),temp));
                 ArrayList<ArrayList<Double>>remainder = new ArrayList<ArrayList<Double>>();
                 remainder = subsPoly(p1,multPoly(p2,temp));
-                out.add(remainder);
+                out.set(1,addPoly(out.get(1),remainder));
                 return out;
             }
             else{
@@ -243,21 +248,27 @@ public class PolyArith {
                 Double quotient1 = (double) quotient;
 
                 if (quotient==0){
+                    System.out.println("i was run");
+                    System.out.println("p1 is: "+p1);                    
                     out.set(0, addPoly(out.get(0),zero));
-                    out.add(p1);
+                    out.set(1, addPoly(out.get(1),p1));
                     return out;
                 }
                 else {
+                    System.out.println(out);
+                    
                     ArrayList<Double> quotientUnit = new ArrayList<Double>();
                     quotientUnit.add(quotient1);
                     quotientUnit.add(p1.get(0).get(1)-p2.get(0).get(1));
-                    ArrayList<ArrayList<Double>> temp = new ArrayList<ArrayList<Double>>();
+                    System.out.println(quotientUnit);
                     ArrayList<ArrayList<Double>> component = new ArrayList<ArrayList<Double>>();
-                    temp = out.get(0);
-                    temp.add(quotientUnit);
                     component.add(quotientUnit);
-                    out.set(0,temp);//finished adding quotient
+                    System.out.println(component);
+                    out.set(0,addPoly(out.get(0),component));//finished adding quotient
                     p1 = subsPoly(p1,multPoly(p2,component));
+                    System.out.println("later..."+out);
+                    System.out.println("new P1"+p1);
+                    System.out.println("new P2"+p2);
                     return (Add3D(out,intDivPoly(p1,p2)));
                 }
             }
@@ -284,18 +295,53 @@ public class PolyArith {
         zero.add(zeroUnit); //now zero = [[0.0, 0.0]]
         while (true){
             if (p1.isEmpty()){
-                out.add(zero);
-                out.add(zero);
-                return out;//same as integer version
+                out.set(0,addPoly(out.get(0),zero));
+                out.set(1,addPoly(out.get(1),zero));
+                return out;
             }
             else if (polyDeg(p1)<polyDeg(p2)){
                 //quotient is zero, and remainder is p1.
-                out.add(zero);
-                out.add(p1);
-                return out; //same as integer version
+                out.set(0,addPoly(out.get(0),zero));
+                out.set(1,addPoly(out.get(1),p1));
+                return out;
             }
             else if (polyDeg(p1)== polyDeg(p2)){
-                
+                double quotientOut = roundTo (p1.get(0).get(0)/p2.get(0).get(0),2);
+                ArrayList<Double> quotientUnit = new ArrayList<Double>();
+                quotientUnit.add(quotientOut);
+                quotientUnit.add(0.0);
+                ArrayList<ArrayList<Double>> quotient = new ArrayList<ArrayList<Double>>();
+                quotient.add(quotientUnit);//quotient now is a 2D arrayList.
+                out.set(0,addPoly(out.get(0),quotient));
+                double realQuotient = p1.get(0).get(0)/p2.get(0).get(0);
+                ArrayList<Double> realQuotientUnit = new ArrayList<Double>();
+                realQuotientUnit.add(realQuotient);
+                realQuotientUnit.add(0.0);
+                ArrayList<ArrayList<Double>> realQuotientList = new ArrayList<ArrayList<Double>>();
+                realQuotientList.add(realQuotientUnit);
+                ArrayList<ArrayList<Double>> remainder = new ArrayList<ArrayList<Double>>();
+                remainder = subsPoly(p1,multPoly(p2,realQuotientList));
+                out.set(1,addPoly(out.get(1),remainder));
+                return out;
+            }
+            else{
+                double quotientCoeff = roundTo (p1.get(0).get(0)/p2.get(0).get(0),2);
+                ArrayList<Double> quotientUnit = new ArrayList<Double>();
+                quotientUnit.add(quotientCoeff);
+                quotientUnit.add(p1.get(0).get(1)-p2.get(0).get(1));
+                ArrayList<ArrayList<Double>> quotient = new ArrayList<ArrayList<Double>>();
+                quotient.add(quotientUnit);//this is the current component of the quotient.
+                ArrayList<ArrayList<Double>> oldQuotient = out.get(0);
+                out.set(0, addPoly(oldQuotient,quotient));
+                //now the quotient in output is updated.
+                double realQuotient = p1.get(0).get(0)/p2.get(0).get(0);
+                ArrayList<Double> realQuotientUnit = new ArrayList<Double>();
+                realQuotientUnit.add(realQuotient);
+                realQuotientUnit.add(p1.get(0).get(1)-p2.get(0).get(1));
+                ArrayList<ArrayList<Double>> realQuotientList = new ArrayList<ArrayList<Double>>();
+                realQuotientList.add(realQuotientUnit);//this is the real current component of the quotient.
+                p1= subsPoly(p1,multPoly(p2,realQuotientList));
+                return (Add3D (out,doubleDivPoly(p1,p2)));
             }
         }
     }
