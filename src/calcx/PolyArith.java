@@ -321,8 +321,8 @@ public class PolyArith {
     public static double findroot (double a, double b, ArrayList<ArrayList<Double>> f) {
         // Need Interpreter to check that f(a) and f(b) has different sign or else cannot use this function
         // Need Interpreter to then check this function actually gives a value between a and b. 
-        double c = (a + b)/2; 
-        double ANS = c - plugin(c, f) / plugin(c, derivative(f)); 
+        double x = (a + b)/2; 
+        double ANS = x - plugin(x, f) / plugin(x, derivative(f)); 
         
         while (StrictMath.abs(plugin(ANS, f) - 0) > 0.0000000000000001) {
             
