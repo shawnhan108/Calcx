@@ -37,7 +37,8 @@ public class Basicop {
     public static double sinrad(double theta) {
         double ANS = StrictMath.sin(theta); 
         return ANS;     
-    } 
+    }
+    
     public static double sindeg(double theta) {
         double ANS = StrictMath.sin(StrictMath.toDegrees(theta)); 
         return ANS; 
@@ -46,7 +47,8 @@ public class Basicop {
     public static double cosrad(double theta) {
         double ANS = StrictMath.cos(theta); 
         return ANS;     
-    } 
+    }
+    
     public static double cosdeg(double theta) {
         double ANS = StrictMath.cos(StrictMath.toDegrees(theta)); 
         return ANS; 
@@ -55,7 +57,8 @@ public class Basicop {
     public static double tanrad(double theta) {
         double ANS = StrictMath.tan(theta); 
         return ANS;     
-    } 
+    }
+    
     public static double tandeg(double theta) {
         double ANS = StrictMath.tan(StrictMath.toDegrees(theta)); 
         return ANS; 
@@ -64,7 +67,8 @@ public class Basicop {
     public static double arcsinrad(double ratio) {
         double ANS = StrictMath.asin(ratio); 
         return ANS;     
-    } 
+    }
+    
     public static double arcsindeg(double ratio) {
         double ANS = StrictMath.toDegrees(StrictMath.asin(ratio)); 
         return ANS; 
@@ -74,6 +78,7 @@ public class Basicop {
         double ANS = StrictMath.acos(ratio); 
         return ANS;     
     } 
+    
     public static double arccosdeg(double ratio) {
         double ANS = StrictMath.toDegrees(StrictMath.acos(ratio)); 
         return ANS; 
@@ -82,7 +87,8 @@ public class Basicop {
     public static double arctanrad(double ratio) {
         double ANS = StrictMath.atan(ratio); 
         return ANS;     
-    } 
+    }
+    
     public static double arctandeg(double ratio) {
         double ANS = StrictMath.toDegrees(StrictMath.atan(ratio)); 
         return ANS; 
@@ -92,10 +98,12 @@ public class Basicop {
         double ANS = StrictMath.log10(num);
         return ANS; 
     }
+    
     public static double ln(double num) {
         double ANS = StrictMath.log(num);
         return ANS; 
     }
+    
     public static double log(double base, double num) {
         double ANS = (StrictMath.log(num))/(StrictMath.log(base)); 
         return ANS;
@@ -165,7 +173,7 @@ public class Basicop {
         
     }
     
-    public static int basechange(int Original, int Final, int Input) {
+    public static int baseChange(int Original, int Final, int Input) {
         
         int ANS = basechangefrom10(Final, basechangeto10(Original, Input), Maxpow(Final, Input)); 
         return ANS; 
@@ -225,7 +233,7 @@ public class Basicop {
             
         } else if (b % a == 0) {
             
-            quotients.add(0, (- (a / b) + 1) * r);
+            quotients.add(0, (- (b / a) + 1) * r);
             quotients.add(1, r);
             return quotients; 
             

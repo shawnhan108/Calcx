@@ -12,6 +12,12 @@ import java.util.*;
 public class gcd {
     public static ArrayList<Integer> numlist= new ArrayList();
 
+    public static double String4Basic (String str){
+        String inp = str.substring (str.indexOf ("(")+1, str.indexOf(")"));
+        inp = inp.replaceAll("\\s","");
+        return Double.parseDouble (inp);
+    }
+    
     public static void String4gl (String str){
         //inteprets user inputs, convert into a list of two or more integers.
         String inp = str.substring (str.indexOf ("(")+1, str.indexOf(")"));

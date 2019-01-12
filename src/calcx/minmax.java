@@ -30,7 +30,27 @@ public class minmax {
         }
         return output;
 }
-    
+        
+        
+        public static ArrayList<Integer> String4Int (String str){
+        //inteprets user inputs, convert into a list of two or more doubles.
+        ArrayList<Integer> output = new ArrayList<Integer>();
+        String inp = str.substring (str.indexOf ("(")+1, str.indexOf(")"));
+        inp = inp.replaceAll("\\s","");
+        while (true){
+            try {
+                output.add(Integer.parseInt (inp));
+                break;
+            }
+            catch (Exception e){
+                String astr = inp.substring (0, inp.indexOf(","));
+                String bstr = inp.substring (inp.indexOf (",")+1, inp.length());
+                output.add(Integer.parseInt(astr));
+                inp = bstr;
+            }
+        }
+        return output;
+}   
     public static double listmin (ArrayList<Double> lst){
         //returns the smallest element in a list, with runtime O(n)
         double min = Double.POSITIVE_INFINITY;
