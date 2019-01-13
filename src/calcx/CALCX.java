@@ -89,6 +89,8 @@ public class CALCX {
             ArrayList<Integer> temp = String4Int(str);
             return diophantine (temp.get(0),temp.get(1),temp.get(2));
         }
+        
+
 
         public static void main(String[] args) throws Exception {
             //Store all functions in hashmap(s), first as the string, second as lambda expression
@@ -135,6 +137,10 @@ public class CALCX {
             funcMap.put("rand", ()->randCallable(str));
             funcMap.put("randint",()->randIntCallable(str));
             funcMap.put("diophantine",()->diophantineCallable(str));
+            funcMap.put("unitmod",()->unitmod((int)String4Basic(str)));
+            funcMap.put("primemod",()->primemod((int)String4Basic(str)));
+            funcMap.put("irreducmod",()->irreducmod((int)String4Basic(str)));
+            
             
             //if ((str.charAt(0) == 'g')&&(str.charAt(1) == 'c')&&(str.charAt(2) == 'd')){
             String command = str.substring(0,str.indexOf("("));
