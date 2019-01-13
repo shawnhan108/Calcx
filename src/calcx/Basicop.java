@@ -259,19 +259,20 @@ public class Basicop {
             p = b; 
             s = a; 
             
-            if (a < 0) {
+            if (b < 0) {
                 
-                p = -a; 
+                p = -b; 
                 
             }
             
-            if (b < 0) {
+            if (a < 0) {
                 
-                s = -b;
+                s = -a;
                 
             } 
             
         } else {
+            
             quotients.add(0,2*r);
             quotients.add(1,-1*r);
             return quotients; 
@@ -315,84 +316,75 @@ public class Basicop {
         }
         
         ArrayList<Integer> output = new ArrayList <Integer>();
-        if (((Math.abs(u) > Math.abs(v)) && (StrictMath.abs(a) > StrictMath.abs(b))) || ((Math.abs(u) < Math.abs(v)) && (StrictMath.abs(b) > StrictMath.abs(a)))){
-            output.add(0, r*v);
-            output.add(1, r*u);
-            
-            if (a < 0) {
-                
-                output.set(0, -r*v); 
-                
-            }
-            
-            if (b < 0) {
-                
-                output.set(1, -r*u); 
-                
-            } 
-            
-            return output; 
-            
-        } else {
+        
+        if (a*u*r + b*v*r == d) {
             output.add(0, r*u);
             output.add(1, r*v);
-            
-            if (a < 0) {
-                
-                output.set(0, -r*u); 
-                
-            }
-            
-            if (b < 0) {
-                
-                output.set(1, -r*v); 
-                
-            } 
-            
+        } else if (-a*u*r + b*v*r == d){
+            output.add(0, -r*u);
+            output.add(1, r*v);
+        } else if (a*u*r - b*v*r == d){
+            output.add(0, r*u);
+            output.add(1, -r*v);
+        } else if (-a*u*r - b*v*r == d){
+            output.add(0, -r*u);
+            output.add(1, -r*v);
+        } else if (a*v*r + b*u*r == d) {
+            output.add(0, r*v);
+            output.add(1, r*u);
+        } else if (-a*v*r + b*u*r == d) {
+            output.add(0, -r*v);
+            output.add(1, r*u);
+        } else if (a*v*r - b*u*r == d) {
+            output.add(0, r*v);
+            output.add(1, -r*u);
+        } else if (-a*v*r - b*u*r == d) {
+            output.add(0, -r*v);
+            output.add(1, -r*u);
+        }
+        
             return output;
-            
+       
         }
-        
-    }
-    
-    public static boolean isCoprime(int a, int b) {
-        
-        if (gcdtwo(a, b) == 1) {
-            
-            return true;
-            
-        } else {
-            
-            return false; 
-            
-        }
-        
-    }
-    
-    
-    public static ArrayList<Integer> unitmod(int n) {
-        
-        ArrayList<Integer> unit = new ArrayList <Integer>(); 
-        int i = 1;
-        int c = 0; 
-        
-        while (i < n){
-            
-            if (gcdtwo (n, i) == 1) {
-            
-                unit.add(c, i); 
-                i++;
-                c++; 
-            
+
+        public static boolean isCoprime(int a, int b) {
+
+            if (gcdtwo(a, b) == 1) {
+
+                return true;
+
             } else {
-                
-                i++;
-                
-            }   
-            
+
+                return false; 
+
+            }
+
         }
-        
-        return unit; 
+
+
+        public static ArrayList<Integer> unitmod(int n) {
+
+            ArrayList<Integer> unit = new ArrayList <Integer>(); 
+            int i = 1;
+            int c = 0; 
+
+            while (i < n){
+
+                if (gcdtwo (n, i) == 1) {
+
+                    unit.add(c, i); 
+                    i++;
+                    c++; 
+
+                } else {
+
+                    i++;
+
+                }   
+
+            }
+
+            return unit; 
         
     }
     
@@ -447,4 +439,5 @@ public class Basicop {
         return irreducibles; 
         
     }
+    
 }
