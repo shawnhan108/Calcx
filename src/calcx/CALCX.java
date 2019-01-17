@@ -94,6 +94,8 @@ public class CALCX {
 
         public static void main(String[] args) throws Exception {
             //Store all functions in hashmap(s), first as the string, second as lambda expression
+            mainWindow f = new mainWindow();
+            f.setVisible(true);
             Map <String, Callable> funcMap = new HashMap<>();
             while (true){
             System.out.println("Please enter in the form of gcd (a1, a2, ..., an)");
