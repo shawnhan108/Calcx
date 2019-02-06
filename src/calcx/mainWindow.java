@@ -5,7 +5,14 @@
  */
 package calcx;
 import java.awt.*;
+import java.lang.*;
 import javax.swing.*;
+import calcx.CALCX.*;
+import static calcx.CALCX.buildMap;
+import static calcx.CALCX.funcMap;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,8 +23,15 @@ public class mainWindow extends javax.swing.JFrame {
     /**
      * Creates new form mainWindow
      */
+    
+    public void setOutputText (String a){
+        JTextArea t = new JTextArea();
+        OutputArea.setText(a);
+    }
+    
     public mainWindow() {
         initComponents();
+        
     }
 
     /**
@@ -30,26 +44,36 @@ public class mainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
+        OutputArea = new javax.swing.JTextArea();
+        ComputeButton = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        InputArea = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        OutputArea.setColumns(20);
+        OutputArea.setRows(5);
+        jScrollPane1.setViewportView(OutputArea);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calcx/images/Untitled drawing.png"))); // NOI18N
+        ComputeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calcx/images/Untitled drawing.png"))); // NOI18N
+        ComputeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ComputeButtonMouseClicked(evt);
+            }
+        });
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jTextArea2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane2.setViewportView(jTextArea2);
+        InputArea.setColumns(20);
+        InputArea.setRows(5);
+        InputArea.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jScrollPane2.setViewportView(InputArea);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calcx/images/his.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,7 +88,7 @@ public class mainWindow extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)))
+                        .addComponent(ComputeButton)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -77,7 +101,7 @@ public class mainWindow extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(ComputeButton)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
@@ -87,6 +111,24 @@ public class mainWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void ComputeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComputeButtonMouseClicked
+        String contents = InputArea.getText();
+        buildMap (funcMap, contents);
+        String command = contents.substring(0,contents.indexOf("("));        
+        command = command.replaceAll("\\s","");        
+        try {
+            System.out.println(funcMap.get(command).call().toString());
+            OutputArea.append(funcMap.get(command).call().toString()+"\n");
+            
+        } catch (Exception ex) {
+            Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ComputeButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -120,16 +162,17 @@ public class mainWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new mainWindow().setVisible(true);
+               
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel ComputeButton;
+    private javax.swing.JTextArea InputArea;
+    private javax.swing.JTextArea OutputArea;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }

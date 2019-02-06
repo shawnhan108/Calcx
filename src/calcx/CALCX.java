@@ -12,6 +12,7 @@ import static calcx.Basicop.*;
 import static calcx.minmax.*;
 import static calcx.PolyBasic.*;
 import static calcx.PolyArith.*;
+import static calcx.mainWindow.*;
 import java.util.concurrent.Callable;
 /**
  *
@@ -90,24 +91,9 @@ public class CALCX {
             return diophantine (temp.get(0),temp.get(1),temp.get(2));
         }
         
-
-
-        public static void main(String[] args) throws Exception {
-            //Store all functions in hashmap(s), first as the string, second as lambda expression
-            mainWindow f = new mainWindow();
-            f.setVisible(true);
-            Map <String, Callable> funcMap = new HashMap<>();
-            while (true){
-            System.out.println("Please enter in the form of gcd (a1, a2, ..., an)");
-            System.out.println("or enter in the form of lcm(a1,a2,...an)");
-            System.out.println("or enter in the form of primefac (a)"); 
-            System.out.println("or enter in the form of primefac (a)"); 
-            System.out.println("or enter in the form of max(a1,a2,a3,...,an)");
-            System.out.println("or enter in the form of min(a1,a2,a3,...,an)");
-            System.out.println("prime?(a),factor?(a,b),coprime?(a,b)");
-            Scanner sc = new Scanner (System.in);
-            String input = sc.nextLine();
-            String str = new String (input);
+        public static Map <String, Callable> funcMap = new HashMap<>();
+        
+        public static void buildMap (Map<String, Callable> map, String str){            
             funcMap.put("gcd", ()->gcdCallable(str));
             funcMap.put("lcm", ()->lcmCallable(str));
             funcMap.put("primefac", ()->primeFacCallable(str));
@@ -142,12 +128,30 @@ public class CALCX {
             funcMap.put("unitmod",()->unitmod((int)String4Basic(str)));
             funcMap.put("primemod",()->primemod((int)String4Basic(str)));
             funcMap.put("irreducmod",()->irreducmod((int)String4Basic(str)));
+        }
+        
+        public static void main(String[] args) throws Exception {
+            //Store all functions in hashmap(s), first as the string, second as lambda expression
+            
+            mainWindow f = new mainWindow();
+            f.setVisible(true);            
+            while (true){
+            System.out.println("Please enter in the form of gcd (a1, a2, ..., an)");
+            System.out.println("or enter in the form of lcm(a1,a2,...an)");
+            System.out.println("or enter in the form of primefac (a)"); 
+            System.out.println("or enter in the form of primefac (a)"); 
+            System.out.println("or enter in the form of max(a1,a2,a3,...,an)");
+            System.out.println("or enter in the form of min(a1,a2,a3,...,an)");
+            System.out.println("prime?(a),factor?(a,b),coprime?(a,b)");
+            
+            Scanner sc = new Scanner (System.in);
+            String input = sc.nextLine();
+            String str = new String (input);
+            
             
             
             //if ((str.charAt(0) == 'g')&&(str.charAt(1) == 'c')&&(str.charAt(2) == 'd')){
-            String command = str.substring(0,str.indexOf("("));
-            command = command.replaceAll("\\s","");
-            System.out.println(funcMap.get(command).call());
+
         }
     }
     
