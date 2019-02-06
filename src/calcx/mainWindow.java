@@ -6,10 +6,12 @@
 package calcx;
 import java.awt.*;
 import java.lang.*;
+import static calcx.gcd.*;
 import javax.swing.*;
 import calcx.CALCX.*;
 import static calcx.CALCX.buildMap;
 import static calcx.CALCX.funcMap;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,14 +119,15 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void ComputeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComputeButtonMouseClicked
+        
         String contents = InputArea.getText();
+        numlist = new ArrayList<Integer>();
         buildMap (funcMap, contents);
         String command = contents.substring(0,contents.indexOf("("));        
         command = command.replaceAll("\\s","");        
         try {
             System.out.println(funcMap.get(command).call().toString());
-            OutputArea.append(funcMap.get(command).call().toString()+"\n");
-            
+            OutputArea.append(funcMap.get(command).call().toString()+"\n");            
         } catch (Exception ex) {
             Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -132,7 +132,6 @@ public class CALCX {
         
         public static void main(String[] args) throws Exception {
             //Store all functions in hashmap(s), first as the string, second as lambda expression
-            
             mainWindow f = new mainWindow();
             f.setVisible(true);            
             while (true){
