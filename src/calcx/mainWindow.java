@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package calcx;
+import java.io.*;
 import java.awt.*;
 import java.lang.*;
 import static calcx.gcd.*;
@@ -11,21 +12,22 @@ import javax.swing.*;
 import calcx.CALCX.*;
 import static calcx.CALCX.buildMap;
 import static calcx.CALCX.funcMap;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Utilities;
 /**
  *
  * @author SHAWN
  */
 public class mainWindow extends javax.swing.JFrame {
-
     /**
      * Creates new form mainWindow
-     */
-    
+     */    
+    public String content;
+    public static File InputHistory = new File("InputHistory.txt");
+    public static File OutputHistory = new File("OutputHistory.txt");
     public void setOutputText (String a){
         JTextArea t = new JTextArea();
         OutputArea.setText(a);
@@ -51,6 +53,7 @@ public class mainWindow extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         InputArea = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,38 +80,50 @@ public class mainWindow extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calcx/images/Clear button.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(239, 239, 239)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ComputeButton)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ComputeButton)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addGap(32, 32, 32))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(ComputeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -119,20 +134,66 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void ComputeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComputeButtonMouseClicked
-        
-        String contents = InputArea.getText();
+        content = "";
+        int caretPos = InputArea.getCaretPosition();
+        int rowNum = (caretPos == 0) ? 1 : 0;
+        for (int offset = caretPos; offset > 0;) {
+            try {
+                offset = Utilities.getRowStart(InputArea, offset) - 1;
+            } catch (BadLocationException ex) {
+                Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            rowNum++;
+        }
+        //now rowNum returns the caret position of the row.
+        int line;
+        try {
+            line = InputArea.getLineOfOffset( InputArea.getCaretPosition() );
+            int start = InputArea.getLineStartOffset( line );
+            int end = InputArea.getLineEndOffset( line );
+            content = InputArea.getDocument().getText(start, end - start);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
         numlist = new ArrayList<Integer>();
-        buildMap (funcMap, contents);
-        String command = contents.substring(0,contents.indexOf("("));        
+        buildMap (funcMap, content);
+        String command = content.substring(0,content.indexOf("("));        
         command = command.replaceAll("\\s","");        
         try {
             System.out.println(funcMap.get(command).call().toString());
-            OutputArea.append(funcMap.get(command).call().toString()+"\n");            
+            OutputArea.append(funcMap.get(command).call().toString()+"\n");
+            InputArea.setText(InputArea.getText() + "\n");            
         } catch (Exception ex) {
             Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ComputeButtonMouseClicked
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        WriteHistory(InputArea.getText(), InputHistory);
+        WriteHistory(OutputArea.getText(), OutputHistory);
+        InputArea.setText("");
+        OutputArea.setText("");
+        content = "";
+        numlist = new ArrayList<Integer>();
+        
+    }//GEN-LAST:event_jLabel1MouseClicked
+    
+    public static void WriteHistory (String a, File b){                
+        try{
+                Writer fileWriter;
+                fileWriter = new BufferedWriter(new FileWriter(b, true));             
+                fileWriter.append(a);
+                fileWriter.append("\n");                
+                fileWriter.close();
+                }
+            catch (FileNotFoundException ex){
+                System.out.println("Cannot find the file "+ b);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }          
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -169,11 +230,12 @@ public class mainWindow extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ComputeButton;
     private javax.swing.JTextArea InputArea;
     private javax.swing.JTextArea OutputArea;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
