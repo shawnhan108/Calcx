@@ -52,8 +52,8 @@ public class mainWindow extends javax.swing.JFrame {
         ComputeButton = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         InputArea = new javax.swing.JTextArea();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        HistoryButton = new javax.swing.JLabel();
+        ClearButton = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,19 +71,27 @@ public class mainWindow extends javax.swing.JFrame {
         InputArea.setColumns(20);
         InputArea.setRows(5);
         InputArea.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        InputArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                InputAreaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                InputAreaKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(InputArea);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calcx/images/his.png"))); // NOI18N
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        HistoryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calcx/images/his.png"))); // NOI18N
+        HistoryButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                HistoryButtonMouseClicked(evt);
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calcx/images/Clear button.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        ClearButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calcx/images/Clear button.png"))); // NOI18N
+        ClearButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                ClearButtonMouseClicked(evt);
             }
         });
 
@@ -100,9 +108,9 @@ public class mainWindow extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(HistoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(239, 239, 239)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ComputeButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -113,13 +121,13 @@ public class mainWindow extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(ComputeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12))
+                        .addComponent(HistoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(ClearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ComputeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -129,9 +137,18 @@ public class mainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel2MouseClicked
+    private void HistoryButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistoryButtonMouseClicked
+        try {
+            String hisTempIn = (readHistory(InputHistory));
+            InputArea.setText(hisTempIn + InputArea.getText()); //update input window
+            String hisTempOut = (readHistory(OutputHistory));
+            OutputArea.setText(hisTempOut + OutputArea.getText());//update output window
+            deleteHistory (InputHistory);
+            deleteHistory (OutputHistory);
+        } catch (IOException ex) {
+            Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }//GEN-LAST:event_HistoryButtonMouseClicked
 
     private void ComputeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComputeButtonMouseClicked
         content = "";
@@ -165,10 +182,10 @@ public class mainWindow extends javax.swing.JFrame {
             InputArea.setText(InputArea.getText() + "\n");            
         } catch (Exception ex) {
             Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }//GEN-LAST:event_ComputeButtonMouseClicked
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void ClearButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClearButtonMouseClicked
         WriteHistory(InputArea.getText(), InputHistory);
         WriteHistory(OutputArea.getText(), OutputHistory);
         InputArea.setText("");
@@ -176,14 +193,44 @@ public class mainWindow extends javax.swing.JFrame {
         content = "";
         numlist = new ArrayList<Integer>();
         
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_ClearButtonMouseClicked
+
+    private void InputAreaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputAreaKeyPressed
+        
+    }//GEN-LAST:event_InputAreaKeyPressed
+
+    private void InputAreaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputAreaKeyReleased
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            content = "";
+            int line;
+            try {
+                line = InputArea.getLineOfOffset(InputArea.getCaretPosition())-1;
+                int start = InputArea.getLineStartOffset( line );
+                int end = InputArea.getLineEndOffset( line );
+                content = InputArea.getDocument().getText(start, end - start);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            numlist = new ArrayList<Integer>();
+            buildMap (funcMap, content);
+            String command = content.substring(0,content.indexOf("("));        
+            command = command.replaceAll("\\s","");        
+            try {
+                System.out.println(funcMap.get(command).call().toString());
+                OutputArea.append(funcMap.get(command).call().toString()+"\n");
+                InputArea.setText(InputArea.getText());            
+            } catch (Exception ex) {
+                Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+    }//GEN-LAST:event_InputAreaKeyReleased
     
     public static void WriteHistory (String a, File b){                
         try{
                 Writer fileWriter;
-                fileWriter = new BufferedWriter(new FileWriter(b, true));             
-                fileWriter.append(a);
-                fileWriter.append("\n");                
+                fileWriter = new BufferedWriter(new FileWriter(b, true)); 
+                fileWriter.append("!@#$%^\n");  
+                fileWriter.append(a);              
                 fileWriter.close();
                 }
             catch (FileNotFoundException ex){
@@ -194,6 +241,63 @@ public class mainWindow extends javax.swing.JFrame {
             }          
     }
     
+    public static String readHistory (File b) throws IOException{
+        String line = "";
+        String acc = "";
+        FileReader fileReader = new FileReader(b);
+        BufferedReader bufferedReader = new BufferedReader(fileReader); 
+        while (true){
+            line = bufferedReader.readLine();
+            if (line == null){
+                break;
+            }
+            else if (line.equals("!@#$%^")){
+                acc = "";
+            }
+            else {
+                acc = acc + line + "\n";
+            }
+         }
+        return acc;//note that acc ends with a \n
+    }
+    
+    
+    public static void deleteHistory (File b) throws IOException{
+        //read the existing file to a string.
+        String line = null;
+        String acc = "";
+        FileReader fileReader = new FileReader(b);
+        BufferedReader bufferedReader = new BufferedReader(fileReader); 
+        while (true){
+            line = bufferedReader.readLine();
+            if (line == null){
+                break;
+            }
+            else {
+                acc = acc + line + "\n";
+            }
+         }
+        //delete the part of string that has already been redisplayed on textAreas.
+        while (!(acc.substring(acc.length()-6,acc.length()).equals("!@#$%^"))){            
+            acc = acc.substring(0, acc.length()-1);
+        }
+        acc = acc.substring(0, acc.length()-6);
+        //update the text file without the displayed string.
+        try{
+                Writer fileWriter;
+                fileWriter = new BufferedWriter(new FileWriter(b, false));
+                if (!(acc.equals(""))){
+                    fileWriter.write(acc.substring(0,acc.length()-2));
+                }               
+            fileWriter.close();
+            }
+            catch (FileNotFoundException ex){
+                System.out.println("Cannot find the file "+ b);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
     /**
      * @param args the command line arguments
      */
@@ -232,11 +336,11 @@ public class mainWindow extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ClearButton;
     private javax.swing.JLabel ComputeButton;
+    private javax.swing.JLabel HistoryButton;
     private javax.swing.JTextArea InputArea;
     private javax.swing.JTextArea OutputArea;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
