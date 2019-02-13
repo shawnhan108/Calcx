@@ -281,7 +281,7 @@ public class mainWindow extends javax.swing.JFrame {
         while (!(acc.substring(acc.length()-6,acc.length()).equals("!@#$%^"))){            
             acc = acc.substring(0, acc.length()-1);
         }
-        acc = acc.substring(0, acc.length()-6);
+        acc = acc.substring(0, acc.length()-5);
         //update the text file without the displayed string.
         try{
                 Writer fileWriter;

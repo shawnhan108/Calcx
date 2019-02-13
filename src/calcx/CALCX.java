@@ -134,24 +134,6 @@ public class CALCX {
             //Store all functions in hashmap, first as the string, second as lambda expression
             mainWindow f = new mainWindow();
             f.setVisible(true);            
-            while (true){
-            System.out.println("Please enter in the form of gcd (a1, a2, ..., an)");
-            System.out.println("or enter in the form of lcm(a1,a2,...an)");
-            System.out.println("or enter in the form of primefac (a)"); 
-            System.out.println("or enter in the form of primefac (a)"); 
-            System.out.println("or enter in the form of max(a1,a2,a3,...,an)");
-            System.out.println("or enter in the form of min(a1,a2,a3,...,an)");
-            System.out.println("prime?(a),factor?(a,b),coprime?(a,b)");
-            
-            Scanner sc = new Scanner (System.in);
-            String input = sc.nextLine();
-            String str = new String (input);
-            
-            
-            
-            //if ((str.charAt(0) == 'g')&&(str.charAt(1) == 'c')&&(str.charAt(2) == 'd')){
-
-        }
     }
     
 }
