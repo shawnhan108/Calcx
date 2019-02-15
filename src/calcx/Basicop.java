@@ -237,7 +237,19 @@ public class Basicop {
             quotients.add(1, r);
             return quotients; 
             
-        } else if (StrictMath.abs(a) > StrictMath.abs(b)) {
+        } else if ((b - a) == gcdtwo(a, b)){
+            
+            quotients.add(0, -r);
+            quotients.add(1, r);
+            return quotients;
+            
+        } else if ((a - b) == gcdtwo(a, b)){
+            
+            quotients.add(0, r);
+            quotients.add(1, -r);
+            return quotients;
+            
+        }else if (StrictMath.abs(a) > StrictMath.abs(b)) {
             
             p = a;
             s = b;
@@ -283,7 +295,7 @@ public class Basicop {
         //now assume p>s, perform Euclidian Algorithm
         while ((p > 0) && (s > 0)) {
             
-            if (p % s == 0 || p % s == 1) {
+            if (p % s == 0) {
                 
                 break; 
                 
@@ -317,28 +329,30 @@ public class Basicop {
         
         ArrayList<Integer> output = new ArrayList <Integer>();
         
-        if (a*u*r + b*v*r == d) {
+        System.out.printf("%d%d", u, v);
+        
+        if ((a*u*r + b*v*r) == d) {
             output.add(0, r*u);
             output.add(1, r*v);
-        } else if (-a*u*r + b*v*r == d){
+        } else if ((-a*u*r + b*v*r) == d){
             output.add(0, -r*u);
             output.add(1, r*v);
-        } else if (a*u*r - b*v*r == d){
+        } else if ((a*u*r - b*v*r) == d){
             output.add(0, r*u);
             output.add(1, -r*v);
-        } else if (-a*u*r - b*v*r == d){
+        } else if ((-a*u*r - b*v*r) == d){
             output.add(0, -r*u);
             output.add(1, -r*v);
-        } else if (a*v*r + b*u*r == d) {
+        } else if ((a*v*r + b*u*r) == d) {
             output.add(0, r*v);
             output.add(1, r*u);
-        } else if (-a*v*r + b*u*r == d) {
+        } else if ((-a*v*r + b*u*r) == d) {
             output.add(0, -r*v);
             output.add(1, r*u);
-        } else if (a*v*r - b*u*r == d) {
+        } else if ((a*v*r - b*u*r) == d) {
             output.add(0, r*v);
             output.add(1, -r*u);
-        } else if (-a*v*r - b*u*r == d) {
+        } else if ((-a*v*r - b*u*r) == d) {
             output.add(0, -r*v);
             output.add(1, -r*u);
         }
